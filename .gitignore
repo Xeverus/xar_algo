@@ -30,3 +30,12 @@
 *.exe
 *.out
 *.app
+
+# Output directories
+build
+
+# Generated files
+CMakeUserPresets.json
+
+# IDE files
+.idea
