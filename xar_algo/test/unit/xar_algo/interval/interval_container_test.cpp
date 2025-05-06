@@ -91,6 +91,185 @@ namespace xar_algo
         }
 
 
+        TEST_F(IntervalCollectionTest, find_overlapping_intervals__empty_container__empty_result)
+        {
+            IntervalCollectionType interval_collection;
+            const auto range = find_overlapping_intervals(interval_collection, {10, 20});
+            EXPECT_EQ(range.first, range.second);
+            EXPECT_EQ(range.first, interval_collection.data.begin());
+        }
+
+
+        TEST_F(IntervalCollectionTest, find_overlapping_intervals__container_with_one_interval__correct_results)
+        {
+            IntervalCollectionType interval_collection;
+            interval_collection.data.insert({10, 20});
+
+            {
+                SCOPED_TRACE("Range before collection");
+                /**
+                 * search    : [ ]
+                 * collection:      [   ]
+                 * result    : empty
+                 */
+
+                const auto range = find_overlapping_intervals(interval_collection, {0, 5});
+                EXPECT_EQ(range.first, range.second);
+                EXPECT_EQ(range.first, interval_collection.data.begin());
+            }
+
+            {
+                SCOPED_TRACE("Range at the beginning of collection");
+                /**
+                 * search    : [      ]
+                 * collection:      [   ]
+                 * result    :      [   ]
+                 */
+
+                const auto range = find_overlapping_intervals(interval_collection, {0, 15});
+                EXPECT_NE(range.first, range.second);
+                EXPECT_EQ(range.first, interval_collection.data.begin());
+                EXPECT_EQ(range.second, interval_collection.data.end());
+            }
+
+            {
+                SCOPED_TRACE("Range at the beginning of collection");
+                /**
+                 * search    : [               ]
+                 * collection:      [   ]
+                 * result    :      [   ]
+                 */
+
+                const auto range = find_overlapping_intervals(interval_collection, {0, 30});
+                EXPECT_NE(range.first, range.second);
+                EXPECT_EQ(range.first, interval_collection.data.begin());
+                EXPECT_EQ(range.second, interval_collection.data.end());
+            }
+
+            {
+                SCOPED_TRACE("Range at the beginning of collection");
+                /**
+                 * search    :       [ ]
+                 * collection:      [   ]
+                 * result    :      [   ]
+                 */
+
+                const auto range = find_overlapping_intervals(interval_collection, {12, 18});
+                EXPECT_NE(range.first, range.second);
+                EXPECT_EQ(range.first, interval_collection.data.begin());
+                EXPECT_EQ(range.second, interval_collection.data.end());
+            }
+
+            {
+                SCOPED_TRACE("Range at the beginning of collection");
+                /**
+                 * search    :        [     ]
+                 * collection:      [   ]
+                 * result    :      [   ]
+                 */
+
+                const auto range = find_overlapping_intervals(interval_collection, {18, 25});
+                EXPECT_NE(range.first, range.second);
+                EXPECT_EQ(range.first, interval_collection.data.begin());
+                EXPECT_EQ(range.second, interval_collection.data.end());
+            }
+
+            {
+                SCOPED_TRACE("Range at the beginning of collection");
+                /**
+                 * search    :              [     ]
+                 * collection:      [   ]
+                 * result    : empty
+                 */
+
+                const auto range = find_overlapping_intervals(interval_collection, {25, 30});
+                EXPECT_EQ(range.first, range.second);
+                EXPECT_EQ(range.first, interval_collection.data.begin());
+            }
+        }
+
+
+        TEST_F(IntervalCollectionTest, find_overlapping_intervals__container_with_two_intervals__correct_results)
+        {
+            IntervalCollectionType interval_collection;
+            interval_collection.data.insert({10, 20});
+            interval_collection.data.insert({40, 50});
+
+            {
+                SCOPED_TRACE("Range between intervals in collection");
+                /**
+                 * search    :            [ ]
+                 * collection:      [   ]     [   ]
+                 * result    : empty
+                 */
+
+                const auto range = find_overlapping_intervals(interval_collection, {25, 35});
+                EXPECT_EQ(range.first, range.second);
+                EXPECT_EQ(range.first, interval_collection.data.begin());
+            }
+
+            {
+                SCOPED_TRACE("Range at the end of first interval");
+                /**
+                 * search    :         [    ]
+                 * collection:      [   ]     [   ]
+                 * result    :      [   ]
+                 */
+
+                const auto range = find_overlapping_intervals(interval_collection, {15, 30});
+                EXPECT_NE(range.first, range.second);
+                EXPECT_EQ(range.first, interval_collection.data.begin());
+                EXPECT_EQ(range.second, std::next(interval_collection.data.begin()));
+                EXPECT_EQ(std::distance(range.first, range.second), 1);
+            }
+
+            {
+                SCOPED_TRACE("Range at the beginning of second interval");
+                /**
+                 * search    :             [    ]
+                 * collection:      [   ]     [   ]
+                 * result    :                [   ]
+                 */
+
+                const auto range = find_overlapping_intervals(interval_collection, {30, 45});
+                EXPECT_NE(range.first, range.second);
+                EXPECT_EQ(range.first, std::next(interval_collection.data.begin()));
+                EXPECT_EQ(range.second, interval_collection.data.end());
+                EXPECT_EQ(std::distance(range.first, range.second), 1);
+            }
+
+            {
+                SCOPED_TRACE("Range at the end of first interval and the beginning of second interval");
+                /**
+                 * search    :        [         ]
+                 * collection:      [   ]     [   ]
+                 * result    :      [   ]     [   ]
+                 */
+
+                const auto range = find_overlapping_intervals(interval_collection, {15, 45});
+                EXPECT_NE(range.first, range.second);
+                EXPECT_EQ(range.first, interval_collection.data.begin());
+                EXPECT_EQ(range.second, interval_collection.data.end());
+                EXPECT_EQ(std::distance(range.first, range.second), 2);
+            }
+
+            {
+                SCOPED_TRACE("Range overlap fully both intervals");
+                /**
+                 * search    :    [                  ]
+                 * collection:      [   ]     [   ]
+                 * result    :      [   ]     [   ]
+                 */
+
+                const auto range = find_overlapping_intervals(interval_collection, {5, 55});
+                EXPECT_NE(range.first, range.second);
+                EXPECT_EQ(range.first, interval_collection.data.begin());
+                EXPECT_EQ(range.second, interval_collection.data.end());
+                EXPECT_EQ(std::distance(range.first, range.second), 2);
+            }
+        }
+
+
         TEST_F(IntervalCollectionTest, add_case_1)
         {
             IntervalCollectionType interval_collection;
