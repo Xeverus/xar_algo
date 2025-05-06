@@ -129,6 +129,7 @@ namespace xar_algo
                 EXPECT_NE(range.first, range.second);
                 EXPECT_EQ(range.first, interval_collection.data.begin());
                 EXPECT_EQ(range.second, interval_collection.data.end());
+                EXPECT_EQ(*range.first, *interval_collection.data.begin());
             }
 
             {
@@ -143,6 +144,7 @@ namespace xar_algo
                 EXPECT_NE(range.first, range.second);
                 EXPECT_EQ(range.first, interval_collection.data.begin());
                 EXPECT_EQ(range.second, interval_collection.data.end());
+                EXPECT_EQ(*range.first, *interval_collection.data.begin());
             }
 
             {
@@ -157,6 +159,7 @@ namespace xar_algo
                 EXPECT_NE(range.first, range.second);
                 EXPECT_EQ(range.first, interval_collection.data.begin());
                 EXPECT_EQ(range.second, interval_collection.data.end());
+                EXPECT_EQ(*range.first, *interval_collection.data.begin());
             }
 
             {
@@ -171,6 +174,7 @@ namespace xar_algo
                 EXPECT_NE(range.first, range.second);
                 EXPECT_EQ(range.first, interval_collection.data.begin());
                 EXPECT_EQ(range.second, interval_collection.data.end());
+                EXPECT_EQ(*range.first, *interval_collection.data.begin());
             }
 
             {
@@ -218,6 +222,7 @@ namespace xar_algo
                 EXPECT_EQ(range.first, interval_collection.data.begin());
                 EXPECT_EQ(range.second, std::next(interval_collection.data.begin()));
                 EXPECT_EQ(std::distance(range.first, range.second), 1);
+                EXPECT_EQ(*range.first, *interval_collection.data.begin());
             }
 
             {
@@ -233,6 +238,7 @@ namespace xar_algo
                 EXPECT_EQ(range.first, std::next(interval_collection.data.begin()));
                 EXPECT_EQ(range.second, interval_collection.data.end());
                 EXPECT_EQ(std::distance(range.first, range.second), 1);
+                EXPECT_EQ(*range.first, *std::next(interval_collection.data.begin()));
             }
 
             {
@@ -248,6 +254,8 @@ namespace xar_algo
                 EXPECT_EQ(range.first, interval_collection.data.begin());
                 EXPECT_EQ(range.second, interval_collection.data.end());
                 EXPECT_EQ(std::distance(range.first, range.second), 2);
+                EXPECT_EQ(*range.first, *interval_collection.data.begin());
+                EXPECT_EQ(*std::next(range.first), *std::next(interval_collection.data.begin()));
             }
 
             {
@@ -263,6 +271,8 @@ namespace xar_algo
                 EXPECT_EQ(range.first, interval_collection.data.begin());
                 EXPECT_EQ(range.second, interval_collection.data.end());
                 EXPECT_EQ(std::distance(range.first, range.second), 2);
+                EXPECT_EQ(*range.first, *interval_collection.data.begin());
+                EXPECT_EQ(*std::next(range.first), *std::next(interval_collection.data.begin()));
             }
         }
 
