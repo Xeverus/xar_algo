@@ -1,8 +1,12 @@
 set(PUBLIC_FILES
+        # dummy
         src/xar_algo/dummy.cpp)
 
 set(PRIVATE_FILES
-        include/xar_algo/dummy.hpp)
+        # dummy
+        include/xar_algo/dummy.hpp
+        # interval
+        include/xar_algo/interval/interval.hpp)
 
 add_library(xar_algo STATIC)
 

@@ -2,13 +2,16 @@
 
 #include <xar_algo/dummy.hpp>
 
-namespace
+namespace xar_algo
 {
-    TEST(dummy, test)
+    namespace
     {
-        const auto expected_result = std::string{"Hello World"};
-        const auto actual_result = xar_algo::dummy();
+        TEST(DummyTest, basic)
+        {
+            const auto expected_result = std::string{"Hello World"};
+            const auto actual_result = dummy();
 
-        ASSERT_EQ(expected_result, actual_result);
+            ASSERT_EQ(expected_result, actual_result);
+        }
     }
 }
