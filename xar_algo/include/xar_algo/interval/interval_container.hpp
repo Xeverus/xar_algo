@@ -47,14 +47,6 @@ namespace xar_algo::interval
 
 
     template <typename T>
-    void add(
-        TIntervalCollection<T>& collection,
-        typename TIntervalCollection<T>::IntervalType interval)
-    {
-    }
-
-
-    template <typename T>
     bool contains(
         const TIntervalCollection<T>& collection,
         const T& value)
@@ -78,5 +70,21 @@ namespace xar_algo::interval
         const auto end_iter = collection.data.upper_bound({interval.end, {}});
 
         return {begin_iter, end_iter};
+    }
+
+
+    template <typename T>
+    void add(
+        TIntervalCollection<T>& collection,
+        typename TIntervalCollection<T>::IntervalType interval)
+    {
+        const auto overlapping_intervals = find_overlapping_intervals(collection, interval);
+        if (overlapping_intervals.first != overlapping_intervals.second) {
+            interval = merge(interval, *overlapping_intervals.first);
+            interval = merge(interval, *std::prev(overlapping_intervals.second));
+        }
+
+        collection.data.erase(overlapping_intervals.first, overlapping_intervals.second);
+        collection.data.insert(interval);
     }
 }
