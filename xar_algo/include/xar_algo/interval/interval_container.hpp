@@ -59,6 +59,7 @@ namespace xar_algo::interval
         const TIntervalCollection<T>& collection,
         const T& value)
     {
+        return false;
     }
 
 
@@ -67,5 +68,6 @@ namespace xar_algo::interval
         const TIntervalCollection<T>& collection,
         const typename TIntervalCollection<T>::IntervalType& interval)
     {
+        return {};
     }
 }
