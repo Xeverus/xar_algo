@@ -13,6 +13,10 @@ namespace xar_algo::interval
     template <typename T>
     struct TInterval
     {
+    public:
+        using ValueType = T;
+
+    public:
         T begin;
         T end;
     };

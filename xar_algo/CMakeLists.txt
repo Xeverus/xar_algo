@@ -6,7 +6,8 @@ set(PRIVATE_FILES
         # dummy
         include/xar_algo/dummy.hpp
         # interval
-        include/xar_algo/interval/interval.hpp)
+        include/xar_algo/interval/interval.hpp
+        include/xar_algo/interval/interval_container.hpp)
 
 add_library(xar_algo STATIC)
 
