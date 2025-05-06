@@ -8,6 +8,11 @@
 
 namespace xar_algo::interval
 {
+    /**
+     * Contains a set of non-overlapping intervals.
+     *
+     * @tparam T Type of value stored in interval.
+     */
     template <typename T>
     struct TIntervalCollection
     {
@@ -15,13 +20,30 @@ namespace xar_algo::interval
         using IntervalType = TInterval<T>;
         using ValueType = TInterval<T>::ValueType;
 
-        struct IntervalComparator;
-        using IntervalSet = std::set<IntervalType, IntervalComparator>;
+        struct TIntervalComparator;
+        using IntervalSet = std::set<IntervalType, TIntervalComparator>;
         using IntervalRange = std::pair<typename IntervalSet::const_iterator, typename IntervalSet::const_iterator>;
 
     public:
         IntervalSet data;
     };
+
+
+    template <typename T>
+    struct TIntervalCollection<T>::TIntervalComparator
+    {
+    public:
+        bool operator()(const IntervalType& left, const IntervalType& right) const;
+    };
+
+
+    template <typename T>
+    bool TIntervalCollection<T>::TIntervalComparator::operator()(
+        const IntervalType& left,
+        const IntervalType& right) const
+    {
+        return left.begin < right.begin;
+    }
 
 
     template <typename T>
