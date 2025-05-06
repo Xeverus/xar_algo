@@ -59,7 +59,8 @@ namespace xar_algo::interval
         const TIntervalCollection<T>& collection,
         const T& value)
     {
-        return false;
+        const auto iter = collection.data.upper_bound({value, {}});
+        return iter != collection.data.begin() && contains(*std::prev(iter), value);
     }
 
 

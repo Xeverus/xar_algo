@@ -42,7 +42,7 @@ namespace xar_algo
         TEST_F(IntervalCollectionTest, contains__filled_container__correct_result)
         {
             IntervalCollectionType interval_collection;
-            add(interval_collection, {0, 10});
+            interval_collection.data.insert({0, 10});
 
             EXPECT_FALSE(contains(interval_collection, -1));
             EXPECT_TRUE(contains(interval_collection, 0));
@@ -62,9 +62,9 @@ namespace xar_algo
         TEST_F(IntervalCollectionTest, to_vector__filled_container__correct_result)
         {
             IntervalCollectionType interval_collection;
-            add(interval_collection, {10, 20});
-            add(interval_collection, {0, 5});
-            add(interval_collection, {30, 35});
+            interval_collection.data.insert({10, 20});
+            interval_collection.data.insert({0, 5});
+            interval_collection.data.insert({30, 35});
 
             const auto result = to_vector(interval_collection);
             ASSERT_EQ(result.size(), 3);
