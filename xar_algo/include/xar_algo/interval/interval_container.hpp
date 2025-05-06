@@ -47,7 +47,7 @@ namespace xar_algo::interval
 
 
     template <typename T>
-    void add_interval(
+    void add(
         TIntervalCollection<T>& collection,
         typename TIntervalCollection<T>::IntervalType interval)
     {
@@ -55,7 +55,9 @@ namespace xar_algo::interval
 
 
     template <typename T>
-    bool contains_value(const T& value)
+    bool contains(
+        const TIntervalCollection<T>& collection,
+        const T& value)
     {
     }
 
