@@ -1,4 +1,6 @@
-# algo
+# Xar Algo
+
+A repository of my implementation of different algorithms. 
 
 ## Build
 Example debug build commands:
