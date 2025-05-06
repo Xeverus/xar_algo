@@ -15,6 +15,8 @@ Implemented functions:
 2. find all intervals in the collection which overlap with a given interval
 3. add new interval to the collection while ensuring that ranges are non-overlapping - merge ranges accordingly if required
 
+### Union find
+
 ## Build
 Example debug build commands:
 
