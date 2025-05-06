@@ -1,10 +1,9 @@
 from conan import ConanFile
 from conan.tools.cmake import CMake, cmake_layout
-from conan.tools.build import cross_building
 
 
 class XarEngine(ConanFile):
-    name = "Algo"
+    name = "Xar Algo"
     version = 0.0
     author = "michal.wendel@gmail.com"
 
@@ -32,7 +31,7 @@ class XarEngine(ConanFile):
         cmake.build()
 
     def package_info(self):
-        self.cpp_info.libs = ["algo"]
+        self.cpp_info.libs = ["xar_algo"]
 
     def package(self):
         cmake = CMake(self)
