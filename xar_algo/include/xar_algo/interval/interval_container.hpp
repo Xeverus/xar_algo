@@ -69,6 +69,14 @@ namespace xar_algo::interval
         const TIntervalCollection<T>& collection,
         const typename TIntervalCollection<T>::IntervalType& interval)
     {
-        return {};
+        auto begin_iter = collection.data.upper_bound(interval);
+        if (begin_iter != collection.data.begin() && overlap(*std::prev(begin_iter), interval))
+        {
+            begin_iter = std::prev(begin_iter);
+        }
+
+        const auto end_iter = collection.data.upper_bound({interval.end, {}});
+
+        return {begin_iter, end_iter};
     }
 }

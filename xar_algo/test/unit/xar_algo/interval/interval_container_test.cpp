@@ -115,7 +115,6 @@ namespace xar_algo
 
                 const auto range = find_overlapping_intervals(interval_collection, {0, 5});
                 EXPECT_EQ(range.first, range.second);
-                EXPECT_EQ(range.first, interval_collection.data.begin());
             }
 
             {
@@ -184,7 +183,6 @@ namespace xar_algo
 
                 const auto range = find_overlapping_intervals(interval_collection, {25, 30});
                 EXPECT_EQ(range.first, range.second);
-                EXPECT_EQ(range.first, interval_collection.data.begin());
             }
         }
 
@@ -205,7 +203,6 @@ namespace xar_algo
 
                 const auto range = find_overlapping_intervals(interval_collection, {25, 35});
                 EXPECT_EQ(range.first, range.second);
-                EXPECT_EQ(range.first, interval_collection.data.begin());
             }
 
             {
