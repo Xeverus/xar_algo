@@ -39,7 +39,7 @@ namespace xar_algo
         }
 
 
-        TEST_F(IntervalCollectionTest, contains__filled_container__correct_result)
+        TEST_F(IntervalCollectionTest, contains__container_with_one_interval__correct_result)
         {
             IntervalCollectionType interval_collection;
             interval_collection.data.insert({0, 10});
@@ -48,6 +48,23 @@ namespace xar_algo
             EXPECT_TRUE(contains(interval_collection, 0));
             EXPECT_TRUE(contains(interval_collection, 10));
             EXPECT_FALSE(contains(interval_collection, 11));
+        }
+
+
+        TEST_F(IntervalCollectionTest, contains__container_with_two_intervals__correct_result)
+        {
+            IntervalCollectionType interval_collection;
+            interval_collection.data.insert({0, 10});
+            interval_collection.data.insert({20, 30});
+
+            EXPECT_FALSE(contains(interval_collection, -1));
+            EXPECT_TRUE(contains(interval_collection, 0));
+            EXPECT_TRUE(contains(interval_collection, 10));
+            EXPECT_FALSE(contains(interval_collection, 11));
+            EXPECT_FALSE(contains(interval_collection, 19));
+            EXPECT_TRUE(contains(interval_collection, 20));
+            EXPECT_TRUE(contains(interval_collection, 30));
+            EXPECT_FALSE(contains(interval_collection, 31));
         }
 
 
