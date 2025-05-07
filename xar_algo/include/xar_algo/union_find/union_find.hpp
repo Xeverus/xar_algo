@@ -1,5 +1,6 @@
 #pragma once
 
+#include <optional>
 #include <unordered_map>
 
 
@@ -20,11 +21,34 @@ namespace xar_algo::union_find
 
 
     template <typename T>
+    typename UnionFind<T>::ValueType find_topmost_node(
+        const UnionFind<T>& state,
+        const typename UnionFind<T>::ValueType& value)
+    {
+        auto topmost_value = value;
+
+        for (auto topmost_node = state.data.find(topmost_value); topmost_node != state.data.end(); topmost_node = state.data.find(topmost_value))
+        {
+            topmost_value = topmost_node->second;
+        }
+
+        return topmost_value;
+    }
+
+    template <typename T>
     bool are_connected(
-        const UnionFind<T> data,
+        const UnionFind<T>& state,
         const typename UnionFind<T>::ValueType& value_1,
         const typename UnionFind<T>::ValueType& value_2)
     {
-        return false;
+        return find_topmost_node(state, value_1) == find_topmost_node(state, value_2);
+    }
+
+    template <typename T>
+    void connect(
+        const UnionFind<T>& state,
+        const typename UnionFind<T>::ValueType& value_1,
+        const typename UnionFind<T>::ValueType& value_2)
+    {
     }
 }
