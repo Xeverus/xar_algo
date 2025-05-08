@@ -8,7 +8,7 @@ namespace xar_algo
     namespace
     {
         using UnionFind = union_find::UnionFind<int>;
-        using UnionFindSet = std::set<std::pair<UnionFind::ChildType, UnionFind::ValueType>>;
+        using UnionFindSet = std::set<std::pair<UnionFind::ValueType, UnionFind::ValueType>>;
 
         class UnionFindTest
             : public testing::Test
@@ -20,7 +20,7 @@ namespace xar_algo
         UnionFindSet UnionFindTest::to_set(const UnionFind& state)
         {
             UnionFindSet entries;
-            for (const auto& entry : state.data)
+            for (const auto& entry : state.hierarchy)
             {
                 entries.insert(entry);
             }
@@ -38,8 +38,8 @@ namespace xar_algo
         TEST_F(UnionFindTest, find_topmost_node__state_with_data__return_correct_value)
         {
             UnionFind state;
-            state.data.insert(std::make_pair(0, 1));
-            state.data.insert(std::make_pair(2, 3));
+            state.hierarchy.insert(std::make_pair(0, 1));
+            state.hierarchy.insert(std::make_pair(2, 3));
 
             EXPECT_EQ(union_find::find_topmost_node(state, 0), 1);
             EXPECT_EQ(union_find::find_topmost_node(state, 1), 1);
@@ -51,11 +51,11 @@ namespace xar_algo
         TEST_F(UnionFindTest, find_topmost_node__state_with_complex_data__return_correct_value)
         {
             UnionFind state;
-            state.data.insert(std::make_pair(10, 0));
-            state.data.insert(std::make_pair(0, 1));
-            state.data.insert(std::make_pair(1, 4));
-            state.data.insert(std::make_pair(2, 4));
-            state.data.insert(std::make_pair(3, 10));
+            state.hierarchy.insert(std::make_pair(10, 0));
+            state.hierarchy.insert(std::make_pair(0, 1));
+            state.hierarchy.insert(std::make_pair(1, 4));
+            state.hierarchy.insert(std::make_pair(2, 4));
+            state.hierarchy.insert(std::make_pair(3, 10));
 
             EXPECT_EQ(union_find::find_topmost_node(state, 10), 4);
             EXPECT_EQ(union_find::find_topmost_node(state, 1), 4);
@@ -72,8 +72,8 @@ namespace xar_algo
         TEST_F(UnionFindTest, are_connected__2_non_connected_trees__return_false)
         {
             UnionFind state;
-            state.data.insert(std::make_pair(0, 1));
-            state.data.insert(std::make_pair(2, 3));
+            state.hierarchy.insert(std::make_pair(0, 1));
+            state.hierarchy.insert(std::make_pair(2, 3));
 
             EXPECT_TRUE(union_find::are_connected(state, 0, 1));
             EXPECT_TRUE(union_find::are_connected(state, 1, 0));
@@ -145,7 +145,7 @@ namespace xar_algo
             }));
         }
 
-        TEST_F(UnionFindTest, connect__merge_two_trees__result_ok)
+        TEST_F(UnionFindTest, connect__two_trees__result_ok)
         {
             UnionFind state;
             union_find::connect(state, 10, 100);

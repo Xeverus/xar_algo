@@ -11,12 +11,10 @@ namespace xar_algo::union_find
     {
     public:
         using ValueType = T;
-        using ChildType = ValueType;
-        using ParentType = ValueType;
-        using ChildParentRelation = std::unordered_map<ChildType, ParentType>;
+        using ChildToParentMap = std::unordered_map<ValueType, ValueType>;
 
     public:
-        ChildParentRelation data;
+        ChildToParentMap hierarchy;
     };
 
 
@@ -27,13 +25,14 @@ namespace xar_algo::union_find
     {
         auto topmost_value = value;
 
-        for (auto topmost_node = state.data.find(topmost_value); topmost_node != state.data.end(); topmost_node = state.data.find(topmost_value))
+        for (auto topmost_node = state.hierarchy.find(topmost_value); topmost_node != state.hierarchy.end(); topmost_node = state.hierarchy.find(topmost_value))
         {
             topmost_value = topmost_node->second;
         }
 
         return topmost_value;
     }
+
 
     template <typename T>
     bool are_connected(
@@ -43,6 +42,7 @@ namespace xar_algo::union_find
     {
         return find_topmost_node(state, value_1) == find_topmost_node(state, value_2);
     }
+
 
     template <typename T>
     void connect(
@@ -57,6 +57,6 @@ namespace xar_algo::union_find
             return;
         }
 
-        state.data.insert(std::make_pair(value_1, std::move(value_2_topmost)));
+        state.hierarchy.insert(std::make_pair(value_1, std::move(value_2_topmost)));
     }
 }
