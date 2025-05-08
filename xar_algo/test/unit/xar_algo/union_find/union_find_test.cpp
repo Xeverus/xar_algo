@@ -28,27 +28,27 @@ namespace xar_algo
         }
 
 
-        TEST_F(UnionFindTest, find_topmost_node__empty_state__return_the_same_value)
+        TEST_F(UnionFindTest, find_topmost_value__empty_state__return_the_same_value)
         {
             UnionFind state;
-            EXPECT_EQ(union_find::find_topmost_node(state, 0), 0);
-            EXPECT_EQ(union_find::find_topmost_node(state, 10), 10);
+            EXPECT_EQ(union_find::find_topmost_value(state, 0), 0);
+            EXPECT_EQ(union_find::find_topmost_value(state, 10), 10);
         }
 
-        TEST_F(UnionFindTest, find_topmost_node__state_with_data__return_correct_value)
+        TEST_F(UnionFindTest, find_topmost_value__state_with_data__return_correct_value)
         {
             UnionFind state;
             state.forest.insert(std::make_pair(0, 1));
             state.forest.insert(std::make_pair(2, 3));
 
-            EXPECT_EQ(union_find::find_topmost_node(state, 0), 1);
-            EXPECT_EQ(union_find::find_topmost_node(state, 1), 1);
+            EXPECT_EQ(union_find::find_topmost_value(state, 0), 1);
+            EXPECT_EQ(union_find::find_topmost_value(state, 1), 1);
 
-            EXPECT_EQ(union_find::find_topmost_node(state, 2), 3);
-            EXPECT_EQ(union_find::find_topmost_node(state, 3), 3);
+            EXPECT_EQ(union_find::find_topmost_value(state, 2), 3);
+            EXPECT_EQ(union_find::find_topmost_value(state, 3), 3);
         }
 
-        TEST_F(UnionFindTest, find_topmost_node__state_with_complex_data__return_correct_value)
+        TEST_F(UnionFindTest, find_topmost_value__state_with_complex_data__return_correct_value)
         {
             UnionFind state;
             state.forest.insert(std::make_pair(10, 0));
@@ -57,10 +57,10 @@ namespace xar_algo
             state.forest.insert(std::make_pair(2, 4));
             state.forest.insert(std::make_pair(3, 10));
 
-            EXPECT_EQ(union_find::find_topmost_node(state, 10), 4);
-            EXPECT_EQ(union_find::find_topmost_node(state, 1), 4);
-            EXPECT_EQ(union_find::find_topmost_node(state, 2), 4);
-            EXPECT_EQ(union_find::find_topmost_node(state, 3), 4);
+            EXPECT_EQ(union_find::find_topmost_value(state, 10), 4);
+            EXPECT_EQ(union_find::find_topmost_value(state, 1), 4);
+            EXPECT_EQ(union_find::find_topmost_value(state, 2), 4);
+            EXPECT_EQ(union_find::find_topmost_value(state, 3), 4);
         }
 
         TEST_F(UnionFindTest, are_connected__empty_data__return_false)

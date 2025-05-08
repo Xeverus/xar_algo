@@ -21,7 +21,7 @@ namespace xar_algo::union_find
 
 
     template <typename T>
-    typename UnionFind<T>::ValueType find_topmost_node(
+    typename UnionFind<T>::ValueType find_topmost_value(
         const UnionFind<T>& state,
         const typename UnionFind<T>::ValueType& value)
     {
@@ -42,7 +42,7 @@ namespace xar_algo::union_find
         const typename UnionFind<T>::ValueType& value_1,
         const typename UnionFind<T>::ValueType& value_2)
     {
-        return find_topmost_node(state, value_1) == find_topmost_node(state, value_2);
+        return find_topmost_value(state, value_1) == find_topmost_value(state, value_2);
     }
 
 
@@ -52,9 +52,9 @@ namespace xar_algo::union_find
         const typename UnionFind<T>::ValueType& value_1,
         const typename UnionFind<T>::ValueType& value_2)
     {
-        auto value_1_topmost = find_topmost_node(state, value_1);
-        auto value_2_topmost = find_topmost_node(state, value_2);
-        if (find_topmost_node(state, value_1) == find_topmost_node(state, value_2))
+        auto value_1_topmost = find_topmost_value(state, value_1);
+        auto value_2_topmost = find_topmost_value(state, value_2);
+        if (find_topmost_value(state, value_1) == find_topmost_value(state, value_2))
         {
             return;
         }
