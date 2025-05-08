@@ -7,14 +7,19 @@ set(PRIVATE_FILES
         include/xar_algo/dummy.hpp
         # interval
         include/xar_algo/interval/interval.hpp
-        include/xar_algo/interval/interval_container.hpp)
+        include/xar_algo/interval/interval_container.hpp
+        # union find
+        include/xar_algo/union_find/union_find.hpp)
+
 
 add_library(xar_algo STATIC)
+
 
 target_sources(xar_algo
         PRIVATE
             ${PUBLIC_FILES}
             ${PRIVATE_FILES})
+
 
 target_include_directories(xar_algo
         PUBLIC
@@ -23,7 +28,4 @@ target_include_directories(xar_algo
             ${CMAKE_CURRENT_SOURCE_DIR}/src)
 
 
-##############################
-# Tests
-##############################
 add_subdirectory(test)

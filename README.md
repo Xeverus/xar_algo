@@ -13,7 +13,18 @@ Both ends of interval are included in the range (lower and upper bound values ar
 Implemented functions:
 1. check if a given value belongs to any interval in the collection
 2. find all intervals in the collection which overlap with a given interval
-3. add new interval to the collection while ensuring that ranges are non-overlapping - merge ranges accordingly if required
+3. add new interval to the collection while ensuring that ranges are non-overlapping - merge ranges accordingly if
+required
+
+### Union find
+Union find algorithm with trees merging optimization. 
+The optimization uses tree sizes of both trees to determine which tree should be a child tree and which should be a
+parent tree. 
+
+Implemented functions:
+1. finding topmost value for a given value (topmost parent)
+2. checking if two values are connected
+3. connecting two values
 
 ## Build
 Example debug build commands:
