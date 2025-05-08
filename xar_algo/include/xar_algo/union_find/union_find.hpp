@@ -12,9 +12,11 @@ namespace xar_algo::union_find
     public:
         using ValueType = T;
         using ChildToParentMap = std::unordered_map<ValueType, ValueType>;
+        using TreeSizeMap = std::unordered_map<ValueType, std::size_t>;
 
     public:
-        ChildToParentMap hierarchy;
+        ChildToParentMap forest;
+        TreeSizeMap tree_size;
     };
 
 
@@ -25,7 +27,7 @@ namespace xar_algo::union_find
     {
         auto topmost_value = value;
 
-        for (auto topmost_node = state.hierarchy.find(topmost_value); topmost_node != state.hierarchy.end(); topmost_node = state.hierarchy.find(topmost_value))
+        for (auto topmost_node = state.forest.find(topmost_value); topmost_node != state.forest.end(); topmost_node = state.forest.find(topmost_value))
         {
             topmost_value = topmost_node->second;
         }
@@ -57,6 +59,22 @@ namespace xar_algo::union_find
             return;
         }
 
-        state.hierarchy.insert(std::make_pair(value_1, std::move(value_2_topmost)));
+        const auto value_1_topmost_size_iter = state.tree_size.find(value_1_topmost);
+        const auto value_1_topmost_size = value_1_topmost_size_iter == state.tree_size.end() ? 1z : value_1_topmost_size_iter->second;
+
+        const auto value_2_topmost_size_iter = state.tree_size.find(value_2_topmost);
+        const auto value_2_topmost_size = value_2_topmost_size_iter == state.tree_size.end() ? 1z : value_2_topmost_size_iter->second;
+
+        const auto merged_trees_size = value_2_topmost_size + value_1_topmost_size;
+        if (value_1_topmost_size <= value_2_topmost_size)
+        {
+            state.tree_size[value_2_topmost] = merged_trees_size;
+            state.forest.insert(std::make_pair(value_1, std::move(value_2_topmost)));
+        }
+        else
+        {
+            state.tree_size[value_1_topmost_size] = merged_trees_size;
+            state.forest.insert(std::make_pair(value_2, std::move(value_1_topmost)));
+        }
     }
 }
