@@ -46,9 +46,17 @@ namespace xar_algo::union_find
 
     template <typename T>
     void connect(
-        const UnionFind<T>& state,
+        UnionFind<T>& state,
         const typename UnionFind<T>::ValueType& value_1,
         const typename UnionFind<T>::ValueType& value_2)
     {
+        auto value_1_topmost = find_topmost_node(state, value_1);
+        auto value_2_topmost = find_topmost_node(state, value_2);
+        if (find_topmost_node(state, value_1) == find_topmost_node(state, value_2))
+        {
+            return;
+        }
+
+        state.data.insert(std::make_pair(value_1, std::move(value_2_topmost)));
     }
 }

@@ -8,11 +8,24 @@ namespace xar_algo
     namespace
     {
         using UnionFind = union_find::UnionFind<int>;
+        using UnionFindSet = std::set<std::pair<UnionFind::ChildType, UnionFind::ValueType>>;
 
         class UnionFindTest
             : public testing::Test
         {
+        protected:
+            static UnionFindSet to_set(const UnionFind& state);
         };
+
+        UnionFindSet UnionFindTest::to_set(const UnionFind& state)
+        {
+            UnionFindSet entries;
+            for (const auto& entry : state.data)
+            {
+                entries.insert(entry);
+            }
+            return entries;
+        }
 
 
         TEST_F(UnionFindTest, find_topmost_node__empty_state__return_the_same_value)
@@ -73,6 +86,88 @@ namespace xar_algo
 
             EXPECT_FALSE(union_find::are_connected(state, 3, 1));
             EXPECT_FALSE(union_find::are_connected(state, 1, 3));
+        }
+
+        TEST_F(UnionFindTest, connect__single_pair__result_ok)
+        {
+            UnionFind state;
+            union_find::connect(state, 1, 2);
+
+            EXPECT_EQ(to_set(state), (UnionFindSet{{1, 2}}));
+        }
+
+        TEST_F(UnionFindTest, connect__three_unrelated_pairs__result_ok)
+        {
+            UnionFind state;
+            union_find::connect(state, 1, 2);
+            union_find::connect(state, 3, 4);
+            union_find::connect(state, 5, 6);
+
+            EXPECT_EQ(to_set(state), (UnionFindSet{{1, 2}, {3, 4}, {5, 6}}));
+        }
+
+        TEST_F(UnionFindTest, connect__two_unrelated_trees__result_ok)
+        {
+            UnionFind state;
+            union_find::connect(state, 1, 10);
+            union_find::connect(state, 2, 10);
+            union_find::connect(state, 3, 10);
+
+            union_find::connect(state, 11, 20);
+            union_find::connect(state, 12, 20);
+            union_find::connect(state, 13, 20);
+
+            EXPECT_EQ(to_set(state), (UnionFindSet{
+                {1, 10}, {2, 10}, {3, 10},
+                {11, 20}, {12, 20}, {13, 20},
+            }));
+        }
+
+        TEST_F(UnionFindTest, connect__build_bigger_tree__result_ok)
+        {
+            UnionFind state;
+            union_find::connect(state, 10, 100);
+            union_find::connect(state, 20, 100);
+            union_find::connect(state, 30, 100);
+
+            union_find::connect(state, 1, 10);
+            union_find::connect(state, 2, 10);
+
+            union_find::connect(state, 3, 20);
+            union_find::connect(state, 4, 20);
+
+            union_find::connect(state, 5, 30);
+            union_find::connect(state, 6, 30);
+
+            EXPECT_EQ(to_set(state), (UnionFindSet{
+                {10, 100}, {20, 100}, {30, 100},
+                {1, 100}, {2, 100}, {3, 100}, {4, 100}, {5, 100}, {6, 100},
+            }));
+        }
+
+        TEST_F(UnionFindTest, connect__merge_two_trees__result_ok)
+        {
+            UnionFind state;
+            union_find::connect(state, 10, 100);
+            union_find::connect(state, 20, 100);
+            union_find::connect(state, 30, 100);
+
+            union_find::connect(state, 40, 200);
+            union_find::connect(state, 50, 200);
+            union_find::connect(state, 60, 200);
+
+            EXPECT_EQ(to_set(state), (UnionFindSet{
+                {10, 100}, {20, 100}, {30, 100},
+                {40, 200}, {50, 200}, {60, 200},
+            }));
+
+            union_find::connect(state, 100, 200);
+
+            EXPECT_EQ(to_set(state), (UnionFindSet{
+                {10, 100}, {20, 100}, {30, 100},
+                {40, 200}, {50, 200}, {60, 200},
+                {100, 200},
+            }));
         }
     }
 }
