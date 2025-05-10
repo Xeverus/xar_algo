@@ -1,6 +1,6 @@
 #include <gtest/gtest.h>
 
-#include <xar_algo/quick_sort/quick_sort.hpp>
+#include <xar_algo/partition/partition.hpp>
 
 namespace xar_algo
 {
@@ -18,7 +18,7 @@ namespace xar_algo
     TEST_P(QuickSortPartitionTest, all_cases) {
         auto params = GetParam();
 
-        const auto end_iter = quick_sort::partition(
+        const auto end_iter = partition::partition(
             params.numbers.begin(),
             params.numbers.end(),
             params.pivot);
