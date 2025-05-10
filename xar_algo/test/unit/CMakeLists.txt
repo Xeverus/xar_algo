@@ -5,6 +5,7 @@ target_sources(xar_algo_test_unit
             xar_algo/dummy_test.cpp
             xar_algo/interval/interval_container_test.cpp
             xar_algo/interval/interval_test.cpp
+            xar_algo/quick_sort/quick_sort.cpp
             xar_algo/union_find/union_find_test.cpp)
 
 target_link_libraries(xar_algo_test_unit
