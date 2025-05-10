@@ -27,9 +27,10 @@ Implemented functions:
 3. connecting two values
 
 ### Quick sort
-Implemented functions:
-1. partition
-2. quick sort
+Quick sort implementation which supports custom value comparator.
+
+### Partition
+Partition a range of numbers using given pivot value and value comparator.
 
 ## Build
 Example debug build commands:

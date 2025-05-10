@@ -8,8 +8,9 @@ set(PRIVATE_FILES
         # interval
         include/xar_algo/interval/interval.hpp
         include/xar_algo/interval/interval_container.hpp
+        # partition
+        include/xar_algo/partition/partition.hpp
         # quick sort
-        include/xar_algo/quick_sort/partition.hpp
         include/xar_algo/quick_sort/quick_sort.hpp
         # union find
         include/xar_algo/union_find/union_find.hpp)

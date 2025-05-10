@@ -2,7 +2,7 @@
 
 #include <utility>
 
-namespace xar_algo::quick_sort
+namespace xar_algo::partition
 {
     template <
         typename IterT,
