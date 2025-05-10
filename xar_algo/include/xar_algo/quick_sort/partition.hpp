@@ -2,14 +2,13 @@
 
 #include <utility>
 
-#include <xar_algo/quick_sort/partition.hpp>
-
 namespace xar_algo::quick_sort
 {
     template <
         typename IterT,
+        typename ValueT = typename IterT::value_type,
         typename ComparatorT = std::less<typename IterT::value_type>>
-    void sort(IterT begin, IterT end, ComparatorT comparator = {})
+    void partition(IterT begin, IterT end, const ValueT& pivot, ComparatorT comparator = {})
     {
 
     }

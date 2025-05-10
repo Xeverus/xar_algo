@@ -9,6 +9,7 @@ set(PRIVATE_FILES
         include/xar_algo/interval/interval.hpp
         include/xar_algo/interval/interval_container.hpp
         # quick sort
+        include/xar_algo/quick_sort/partition.hpp
         include/xar_algo/quick_sort/quick_sort.hpp
         # union find
         include/xar_algo/union_find/union_find.hpp)
