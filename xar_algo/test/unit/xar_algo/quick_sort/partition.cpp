@@ -18,20 +18,29 @@ namespace xar_algo
     TEST_P(QuickSortPartitionTest, all_cases) {
         auto params = GetParam();
 
-        quick_sort::partition(
+        const auto end_iter = quick_sort::partition(
             params.numbers.begin(),
             params.numbers.end(),
             params.pivot);
 
+
+        const auto predicate = [&params](const auto& value){
+            return Comparator{}(value, params.pivot);
+        };
+
         const bool is_partitioned = std::is_partitioned(
             params.numbers.begin(),
             params.numbers.end(),
-            [&params](const auto& value){
-                return Comparator{}(value, params.pivot);
-            }
+            predicate
         );
 
+        const auto expected_end_iter = std::partition(
+            params.numbers.begin(),
+            params.numbers.end(),
+            predicate);
+
         EXPECT_TRUE(is_partitioned);
+        EXPECT_EQ(end_iter, expected_end_iter);
     }
 
     INSTANTIATE_TEST_SUITE_P(

@@ -8,9 +8,10 @@ namespace xar_algo::quick_sort
         typename IterT,
         typename ValueT = typename IterT::value_type,
         typename ComparatorT = std::less<typename IterT::value_type>>
-    void partition(IterT begin, IterT end, const ValueT& pivot, ComparatorT comparator = {})
+    IterT partition(IterT begin, IterT end, const ValueT& pivot, ComparatorT comparator = {})
     {
-        for (auto insert_iter = begin, current_iter = begin; current_iter != end; ++current_iter)
+        auto insert_iter = begin;
+        for (auto current_iter = begin; current_iter != end; ++current_iter)
         {
             if (!comparator(*current_iter, pivot)) {
                 continue;
@@ -19,5 +20,7 @@ namespace xar_algo::quick_sort
             std::iter_swap(current_iter, insert_iter);
             ++insert_iter;
         }
+
+        return insert_iter;
     }
 }
