@@ -26,6 +26,11 @@ Implemented functions:
 2. checking if two values are connected
 3. connecting two values
 
+### Quick sort
+Implemented functions:
+1. partition
+2. quick sort
+
 ## Build
 Example debug build commands:
 
