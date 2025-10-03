@@ -5,6 +5,8 @@ set(PUBLIC_FILES
 set(PRIVATE_FILES
         # dummy
         include/xar_algo/dummy.hpp
+        # heap
+        include/xar_algo/heap/heap.hpp
         # interval
         include/xar_algo/interval/interval.hpp
         include/xar_algo/interval/interval_container.hpp
