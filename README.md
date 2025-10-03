@@ -32,11 +32,16 @@ Quick sort implementation which supports custom value comparator.
 ### Partition
 Partition a range of numbers using given pivot value and value comparator.
 
-## Build
+## Environment setup and Build process
 Example debug build commands:
 
+### install
 ```
-conan install . -pr config/conan/profiles/windows_x86_64-gcc11 --build=missing -s build_type=Debug
+CMAKE_POLICY_VERSION_MINIMUM=3.5 conan install . --profile:build=config/conan/profiles/linux_x86_64-gcc11 --profile:host=config/conan/profiles/linux_x86_64-gcc11 --build=missing -s build_type=Debug
+```
+
+### build
+```
 cmake --preset conan-debug
 cmake --build --preset conan-debug
 ```
